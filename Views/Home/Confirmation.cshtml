@@ -5,7 +5,8 @@
     ViewData["Title"] = "Movie Submitted";
 }
 
-@model Mission6Assignment.Models.ApplicationResponse
+@model Mission6Assignment.Models.Movie
 
 
 <h2>@Model.Title has been submitted. Thanks!</h2>
+<h3><a asp-controller="Home" asp-action="ViewMovies">View Movies</a></h3>

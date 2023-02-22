@@ -25,8 +25,10 @@ namespace Mission6Assignment
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Adds services needed to use controllers with views
             services.AddControllersWithViews();
 
+            // Adds the MovieContext model as dbcontext and configures it to use a sqlite db
             services.AddDbContext<MovieContext>(options =>
            {
                options.UseSqlite(Configuration["ConnectionStrings:Connection"]);
@@ -36,6 +38,7 @@ namespace Mission6Assignment
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // uses developer exceptions if environment is dev, otherwise displays default errors page
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -46,13 +49,20 @@ namespace Mission6Assignment
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            // allows https redirection within the project
             app.UseHttpsRedirection();
+
+            // allows project to serve static files
             app.UseStaticFiles();
 
+            // enables routing
             app.UseRouting();
 
+            // enables authorization
             app.UseAuthorization();
 
+            // adds index action as the default or root page
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
