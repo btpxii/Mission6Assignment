@@ -33,6 +33,8 @@ namespace Mission6Assignment.Controllers
         {
             return View("MyPodcasts");
         }
+
+        // get request to viewmovies returns all movies from db into viewmovies view, in order by year
         [HttpGet]
         public IActionResult ViewMovies()
         {
@@ -43,6 +45,8 @@ namespace Mission6Assignment.Controllers
             return View(movies);
         }
 
+        // get request to edit returns the entermovie view with the given data, passed by filtering with the edited movie's id
+        [HttpGet]
         public IActionResult Edit (int id)
         {
             ViewBag.Categories = movieContext.Categories.ToList();
@@ -51,9 +55,40 @@ namespace Mission6Assignment.Controllers
             return View("EnterMovie", movie);
         }
 
-        public IActionResult Delete ()
+        // post request to edit validates the model, updates and saves and brings back to view movies if valid, sends back to entermovie with movie's info if false (shows errors as well)
+        [HttpPost]
+        public IActionResult Edit (Movie movie)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                movieContext.Update(movie);
+                movieContext.SaveChanges();
+
+                return RedirectToAction("ViewMovies");
+            }
+            else
+            {
+                ViewBag.Categories = movieContext.Categories.ToList();
+                return View("EnterMovie", movie);
+            }
+
+        }
+
+        // get req to delete shows delete confirmation page with data from selected movie's details (filtered by id)
+        [HttpGet]
+        public IActionResult Delete (int id)
+        {
+            var movie = movieContext.Movies.Single(x => x.MovieId == id);
+            return View(movie);
+        }
+
+        // post req to delete removes selected movie from db, saves, and redirects back to viewMovies view
+        [HttpPost]
+        public IActionResult Delete(Movie movie)
+        {
+            movieContext.Movies.Remove(movie);
+            movieContext.SaveChanges();
+            return RedirectToAction("ViewMovies");
         }
 
         // when a get request is received for entermovie, entermovie view is displayed
@@ -61,7 +96,7 @@ namespace Mission6Assignment.Controllers
         public IActionResult EnterMovie()
         {
             ViewBag.Categories = movieContext.Categories.ToList();
-            return View();
+            return View(new Movie());
         }
 
         // when a post request is received to entermovie, posted data is added to the db, saved
@@ -77,7 +112,8 @@ namespace Mission6Assignment.Controllers
             }
             else
             {
-                return View(movie);
+                ViewBag.Categories = movieContext.Categories.ToList();
+                return View();
             }
         }
 

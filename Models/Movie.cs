@@ -24,16 +24,16 @@ namespace Mission6Assignment.Models
         [Required]
         public string Rating { get; set; }
 
-        public bool Edited { get; set; }
+        public bool? Edited { get; set; }
 
         public string LentTo { get; set; }
 
         [StringLength(25)]
         public string Notes { get; set; }
 
-        // fk relationship
-        [Required]
-        public int CategoryId { get; set; }
+        // fk relationship with Category class, requiring a categoryId linking to a category object
+        [Required(ErrorMessage = "The Category field is required.")]
+        public int? CategoryId { get; set; }
         public Category Category { get; set; }
     }
 }

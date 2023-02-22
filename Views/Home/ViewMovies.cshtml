@@ -30,7 +30,7 @@
                     <td>@movie.LentTo</td>
                     <td>@movie.Notes</td>
                     <td><a asp-controller="Home" asp-action="Edit" asp-route-id="@movie.MovieId">Edit</a></td>
-                    <td><a asp-controller="Home" asp-action="Delete">Delete</a></td>
+                    <td><a asp-controller="Home" asp-action="Delete" asp-route-id="@movie.MovieId">Delete</a></td>
                 </tr>
             }
     </tbody>

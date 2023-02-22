@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mission6Assignment.Models
 {
+    // builds class Category, which has an id key and a name value
     public class Category
     {
         [Key]

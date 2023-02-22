@@ -15,7 +15,7 @@ namespace Mission6Assignment.Models
 
         }
 
-        // define a DbSet that will hold instances of ApplicationResponse
+        // define a DbSet that will hold instances of movies and categories
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Category> Categories { get; set; }
 

@@ -1,10 +1,11 @@
 ﻿@{
-    ViewData["Title"] = "Enter Movie";
+    ViewData["Title"] = "Movie Details";
 }
 
 @model Mission6Assignment.Models.Movie
 <div>
     <form method="post">
+        <input type="hidden" asp-for="MovieId" />
         <label asp-for="CategoryId">Category:</label>
         <select asp-for="CategoryId">
             <option value="">Select an option</option>
